@@ -1,0 +1,17 @@
+{
+  "name": "nfsub",
+  "version": "1.0.0",
+  "description": ".srt subtitles for netflix",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "subplay": "1.0.0"
+  },
+  "devDependencies": {
+    "gulp-uglify": "^1.2.0"
+  }
+}
