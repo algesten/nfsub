@@ -26,6 +26,9 @@ Installation
 5. Load your local .srt-file
 6. Adjust timings with G and H (like VLC)
 
+
+![The Load button](https://cloud.githubusercontent.com/assets/227204/7842098/b5194444-04a9-11e5-9d2f-ed5db2981cbc.png)
+
 License
 -------
 
