@@ -20,7 +20,7 @@ Installation
 ------------
 
 1. Install [tampermonkey](https://tampermonkey.net/)
-2. Install the <a href="https://raw.githubusercontent.com/algesten/nfsub/master/tamper.js" target="_blank">nfsub script</a>
+2. Install the <a href="https://raw.githubusercontent.com/algesten/nfsub/master/tamper.user.js" target="_blank">nfsub script</a>
 3. Start playing a Netflix movie
 4. In the subtitle menu, there's a "Load" button
 5. Load your local .srt-file
