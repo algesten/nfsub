@@ -31,7 +31,7 @@ gulp.task 'minify', ['coffee'], ->
 # concat header file with minified
 gulp.task 'tampermonkey', ['minify'], ->
   gulp.src [paths.header, './lib/nfsub.min.js']
-    .pipe concat('tamper.js')
+    .pipe concat('tamper.user.js')
     .pipe gulp.dest './'
 
 # make it a single standalone file

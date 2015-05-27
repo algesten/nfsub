@@ -6,6 +6,6 @@
 // @author       Martin Algesten
 // @include      http://www.netflix.com/*
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/algesten/nfsub/master/tamper.js
+// @downloadURL  https://raw.githubusercontent.com/algesten/nfsub/master/tamper.user.js
 // @supportURL   https://github.com/algesten/nfsub/issues
 // ==/UserScript==
