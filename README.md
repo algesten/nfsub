@@ -10,7 +10,7 @@ This script is in no way affiliated or endorsed by Netflix. Use at your own peri
 Motivation
 ----------
 
-My boyfriend is british and near deaf. Swedish Netflix provide only
+My boyfriend is British and near deaf. Swedish Netflix provide only
 nordic language subtitles for most content. However, the internet is
 full of `.srt` subtitles for almost everything. This plugin lets me
 load .srt subtitles into a netflix movie and watch Netflix together
