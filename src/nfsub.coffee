@@ -3,6 +3,7 @@ subplay = require 'subplay'
 mkel    = (n) ->  document.createElement n
 byTag   = (tg) -> document.getElementsByTagName(tg)?[0]
 byClass = (cl) -> document.getElementsByClassName(cl)?[0]
+byId    = (id) -> document.getElementById id
 
 merge   = (t, os...) -> t[k] = v for k,v of o when v != undefined for o in os; t
 
@@ -16,17 +17,16 @@ attachDom = ->
   el = byClass 'nfsub'
   return el if el
   # this is where nf places their subtitles
-  sib = byClass 'player-timedtext'
+  pttel = byClass 'player-timedtext'
   el = mkel 'div'
   el.className = 'nfsub'
   # append all into DOM
-  sib.parentNode.appendChild el
+  pttel.parentNode.appendChild el
   # receive click on the element
   el.innerHTML =
   """
   <div class="nfsub-text"></div>
   <div class="nfsub-offs"></div>
-  <div class="nfsub-load">Click to load subtitles<div>
   """
 
   merge el.style, {
@@ -43,22 +43,35 @@ attachDom = ->
       -1px  1px 0 #000,
        1px  1px 0 #000'
   }
-  merge byClass('nfsub-load').style, {
-    textAlign: 'center'
-  }
   merge byClass('nfsub-text').style, {
     textAlign: 'center'
   }
   merge byClass('nfsub-offs').style, {
-    right: '0'
+    right: '20px'
     top: '0'
     position: 'absolute'
     display: 'none'
   }
 
+  loadel = mkel 'div'
+  loadel.className = 'nfsub-load'
+  loadel.innerHTML = 'Load'
+  merge loadel.style, {
+    position: 'absolute'
+    top: '0'
+    right: '0'
+    color: '#fff'
+    padding: '7px'
+    cursor: 'pointer'
+  }
+  setTimeout ->
+    pmtsel = byId 'player-menu-track-settings'
+    pmtsel.appendChild loadel
+    byClass('nfsub-load').addEventListener 'click', onLoadClick
+  , 1000
+
   document.body.addEventListener 'keydown', onKeyDown
 
-  byClass('nfsub-load').addEventListener 'click', onLoadClick
   log 'attachDom appended', el
   el
 
@@ -111,13 +124,13 @@ readFile = (ev) ->
   f = ev.target.files?[0]
   return unless f
   r = new FileReader()
+  nfsub.stop()
   r.onload = (e) ->
     log 'readFile onload', e
     # remove <input type="file">
     ev.target.parentNode.removeChild ev.target
     srt = e.target.result
     nfsub.start srt
-    byClass('nfsub-load').style.display = 'none'
   r.readAsText(f, 'cp1252')
 
 
@@ -168,6 +181,6 @@ module.exports = nfsub =
     subupdate = subplay(srt, renderer)
     update = (time) -> subupdate(if (dt = time + offset / 1000) >= 0 then dt else 0)
   stop: ->
-    subupdate -1 # stop it
+    subupdate? -1 # stop it
     subupdate = null
     update = ->
