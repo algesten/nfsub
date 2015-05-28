@@ -19,6 +19,8 @@ with my boyf.
 Installation
 ------------
 
+### Using tampermonkey
+
 1. Install [tampermonkey](https://tampermonkey.net/)
 2. Install the <a href="https://raw.githubusercontent.com/algesten/nfsub/master/nfsub.user.js" target="_blank">nfsub script</a> by clicking this link *after* tampermonkey is installed.
 3. Start playing a Netflix movie
@@ -26,6 +28,12 @@ Installation
 5. Load your local .srt-file
 6. Adjust timings with G and H (like VLC)
 
+### Safari extension
+
+Download and install (run) this [safari extension](https://raw.githubusercontent.com/algesten/nfsub/master/NFSub.safariextz).
+
+Example
+-------
 
 ![The Load button](https://cloud.githubusercontent.com/assets/227204/7842098/b5194444-04a9-11e5-9d2f-ed5db2981cbc.png)
 
