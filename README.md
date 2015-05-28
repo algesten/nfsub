@@ -30,7 +30,11 @@ Installation
 
 ### Safari extension
 
-Download and install (run) this [safari extension](https://raw.githubusercontent.com/algesten/nfsub/master/NFSub.safariextz).
+1. Download and install (run) this [safari extension](https://raw.githubusercontent.com/algesten/nfsub/master/NFSub.safariextz).
+2. Start playing a Netflix movie
+3. In the subtitle menu, there's a "Load" button
+4. Load your local .srt-file
+5. Adjust timings with G and H (like VLC)
 
 Example
 -------
