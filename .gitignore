@@ -25,3 +25,6 @@ lib
 test.*
 
 nfsub.js
+header.js
+Info.plist
+NFSub.safariextension/nfsub.user.js

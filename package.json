@@ -1,6 +1,6 @@
 {
   "name": "nfsub",
-  "version": "1.0.0",
+  "version": "1.0.10",
   "description": ".srt subtitles for netflix",
   "main": "index.js",
   "repository": {
@@ -15,8 +15,10 @@
   "devDependencies": {
     "gulp-concat": "^2.5.2",
     "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.3",
     "gulp-uglify": "^1.2.0",
-    "gulp-webserver": "^0.9.1"
+    "gulp-webserver": "^0.9.1",
+    "moment": "^2.10.3"
   },
   "private": true
 }

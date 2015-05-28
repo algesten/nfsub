@@ -6,10 +6,15 @@ uglify     = require 'gulp-uglify'
 webserver  = require 'gulp-webserver'
 concat     = require 'gulp-concat'
 rename     = require 'gulp-rename'
+replace    = require 'gulp-replace'
+moment     = require 'moment'
+
+pkg    = require './package.json'
 
 paths =
   coffee: './src/**/*.coffee'
-  header: './header.js'
+  header: './header.js.orig'
+  infopl: './NFSub.safariextension/Info.plist.orig'
 
 out = 'lib'
 
@@ -28,14 +33,34 @@ gulp.task 'minify', ['coffee'], ->
     .pipe rename 'nfsub.min.js'
     .pipe gulp.dest './lib/'
 
-# concat header file with minified
-gulp.task 'tampermonkey', ['minify'], ->
-  gulp.src [paths.header, './lib/nfsub.min.js']
-    .pipe concat('nfsub.user.js')
+
+orig = (s) -> s.replace '.orig', ''
+
+# substitute versions into place
+gulp.task 'substitute', ->
+
+  version = "#{pkg.version}.#{moment().format('YYYYMMDDHHmmssSSS')}"
+
+  gulp.src paths.header
+    .pipe replace '@@@VERSION@@@', version
+    .pipe rename orig(paths.header)
     .pipe gulp.dest './'
 
+  gulp.src paths.infopl
+    .pipe replace '@@@VERSION@@@', version
+    .pipe rename orig(paths.infopl)
+    .pipe gulp.dest './'
+
+
+# concat header file with minified
+gulp.task 'concat', ['substitute', 'minify'], ->
+  gulp.src ['./header.js', './lib/nfsub.min.js']
+    .pipe concat 'nfsub.user.js'
+    .pipe gulp.dest './'
+    .pipe gulp.dest './NFSub.safariextension'
+
 # make it a single standalone file
-gulp.task 'package', ['tampermonkey'], ->
+gulp.task 'package', ['concat'], ->
 
 gulp.task 'default', ['package']
 
