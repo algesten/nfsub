@@ -39,7 +39,7 @@ orig = (s) -> s.replace '.orig', ''
 # substitute versions into place
 gulp.task 'substitute', ->
 
-  version = "#{pkg.version}.#{moment().format('YYYYMMDDHHmmssSSS')}"
+  version = "#{pkg.version}.#{moment().format('YYYYMMDDHH.mmss')}"
 
   gulp.src paths.header
     .pipe replace '@@@VERSION@@@', version

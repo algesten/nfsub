@@ -1,4 +1,5 @@
-subplay = require 'subplay'
+subplay   = require 'subplay'
+jschardet = require 'jschardet'
 
 mkel    = (n) ->  document.createElement n
 byTag   = (tg) -> document.getElementsByTagName(tg)?[0]
@@ -121,17 +122,28 @@ showOffset = ->
 # and starts the subplay player.
 readFile = (ev) ->
   log 'readFile', ev
+  # stop previous subtitles
+  nfsub.stop()
+  # do we have a file?
   f = ev.target.files?[0]
   return unless f
+  # determine encoding
   r = new FileReader()
-  nfsub.stop()
   r.onload = (e) ->
-    log 'readFile onload', e
+    log 'readFile onload detect encoding', e
     # remove <input type="file">
     ev.target.parentNode.removeChild ev.target
     srt = e.target.result
-    nfsub.start srt
-  r.readAsText(f, 'cp1252')
+    det = jschardet.detect srt
+    log 'readFile onload encoding', det
+    return unless det?.encoding
+    # now read with detected encoding
+    r2 = new FileReader()
+    r2.onload = (e) ->
+      srt = e.target.result
+      nfsub.start srt
+    r2.readAsText f, det.encoding
+  r.readAsBinaryString f
 
 
 # the initial <video> tag is inert and any event handlers
