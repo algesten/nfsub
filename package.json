@@ -1,6 +1,6 @@
 {
   "name": "nfsub",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "description": ".srt subtitles for netflix",
   "main": "index.js",
   "repository": {
