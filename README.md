@@ -39,7 +39,13 @@ Installation
 Example
 -------
 
+The load button is in the subtitles menu.
+
 ![The Load button](https://cloud.githubusercontent.com/assets/227204/7842098/b5194444-04a9-11e5-9d2f-ed5db2981cbc.png)
+
+Subtitle are loaded and timings adjusted with G and H.
+
+![example](https://cloud.githubusercontent.com/assets/227204/7879635/dc8417f0-05fa-11e5-84ad-6ce386cf324d.png)
 
 License
 -------
