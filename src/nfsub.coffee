@@ -65,6 +65,7 @@ attachDom = ->
     padding: '7px'
     cursor: 'pointer'
   }
+
   setTimeout ->
     pmtsel = byId 'player-menu-track-settings'
     pmtsel.appendChild loadel
@@ -188,10 +189,13 @@ setOutput = (loadMode, text) ->
   el = attach()
   el.innerHTML = text
 
+removeStandardSubs = -> byClass('player-timedtext')?.remove()
+
 module.exports = nfsub =
   start: (srt) ->
+    removeStandardSubs()
     subupdate = subplay(srt, renderer)
-    update = (time) -> subupdate(if (dt = time + offset / 1000) >= 0 then dt else 0)
+    update = (time) -> subupdate(if (dt = (time - offset / 1000)) >= 0 then dt else 0)
   stop: ->
     subupdate? -1 # stop it
     subupdate = null

@@ -14,7 +14,6 @@ pkg    = require './package.json'
 paths =
   coffee: './src/**/*.coffee'
   header: './header.js.orig'
-  infopl: './NFSub.safariextension/Info.plist.orig'
 
 out = 'lib'
 
@@ -46,18 +45,11 @@ gulp.task 'substitute', ->
     .pipe rename orig(paths.header)
     .pipe gulp.dest './'
 
-  gulp.src paths.infopl
-    .pipe replace '@@@VERSION@@@', version
-    .pipe rename orig(paths.infopl)
-    .pipe gulp.dest './'
-
-
 # concat header file with minified
 gulp.task 'concat', ['substitute', 'minify'], ->
   gulp.src ['./header.js', './lib/nfsub.min.js']
     .pipe concat 'nfsub.user.js'
     .pipe gulp.dest './'
-    .pipe gulp.dest './NFSub.safariextension'
 
 # make it a single standalone file
 gulp.task 'package', ['concat'], ->
