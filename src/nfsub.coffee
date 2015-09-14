@@ -161,6 +161,8 @@ installEventListener = ->
     clearInterval inter # stop installing
     videoEl.removeEventListener 'timeupdate', receivedTimeupdate # remove self
     videoEl.addEventListener 'timeupdate', onTimeUpdate # install real
+    videoEl.addEventListener 'pause', onPause
+    videoEl.addEventListener 'play', onPlay
     attachDom()
   inter = setInterval ->
     videoEl = getVideo()
@@ -178,8 +180,18 @@ subupdate = null
 # the update function or -> if inert
 update = ->
 
+# whether we are playing (or paused)
+playing = true
+
 # wire video update events to the update function
 onTimeUpdate = (ev) -> update ev.target.currentTime
+onPlay  = ->
+  log 'play'
+  playing = true
+onPause = ->
+  log 'pause'
+  playing = false
+  update -1
 
 # render function that places the text on screen
 renderer = (text) ->
@@ -195,8 +207,15 @@ module.exports = nfsub =
   start: (srt) ->
     removeStandardSubs()
     subupdate = subplay(srt, renderer)
-    update = (time) -> subupdate(if (dt = (time - offset / 1000)) >= 0 then dt else 0)
+    playing = true
+    update = (time) ->
+      if playing and time >= 0
+        time = if (dt = (time - offset / 1000)) >= 0 then dt else 0
+        subupdate(time)
+      else
+        subupdate? -1
   stop: ->
     subupdate? -1 # stop it
+    playing = false
     subupdate = null
     update = ->

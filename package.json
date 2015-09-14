@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "jschardet": "^1.1.1",
-    "subplay": "1.0.2"
+    "subplay": "1.1.0"
   },
   "devDependencies": {
     "coffee-script": "^1.10.0",
