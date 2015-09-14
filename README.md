@@ -35,9 +35,16 @@ The load button is in the subtitles menu.
 
 ![The Load button](https://cloud.githubusercontent.com/assets/227204/7842098/b5194444-04a9-11e5-9d2f-ed5db2981cbc.png)
 
-Subtitle are loaded and timings adjusted with G and H.
+Subtitle are loaded and timings adjusted with G and H (like VLC). But not in fullscreen.
 
 ![example](https://cloud.githubusercontent.com/assets/227204/7879635/dc8417f0-05fa-11e5-84ad-6ce386cf324d.png)
+
+Keys in fullscreen
+------------------
+
+Due to security restrictions in HTML5 video, we can't capture keyboard
+events when in fullscreen. To adjust timings, exit fullscreen and then
+adjust.
 
 License
 -------
