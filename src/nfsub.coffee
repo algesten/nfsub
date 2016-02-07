@@ -10,7 +10,7 @@ merge   = (t, os...) -> t[k] = v for k,v of o when v != undefined for o in os; t
 
 onready = (f) -> if /in/.test document.readyState then setTimeout(onready,9,f) else f()
 
-log = (as...) -> console.log as...
+log = console.log.bind console
 
 # helper function to get video tag
 getVideo  = -> byTag 'video'
@@ -164,15 +164,26 @@ installEventListener = ->
     videoEl.addEventListener 'pause', onPause
     videoEl.addEventListener 'play', onPlay
     attachDom()
+    startIntervalChecks()
   inter = setInterval ->
     videoEl = getVideo()
     if videoEl
       videoEl.addEventListener 'timeupdate', receivedTimeupdate
   , 1000
 
-
 log 'waiting onready'
 onready installEventListener
+
+startIntervalChecks = do ->
+  started = false
+  ->
+    return if started
+    setInterval ->
+      # do nothing if we had a time update in the last 2 secs
+      return if (Date.now() - lastTimeUpdate) < 2000
+      installEventListener() # otherwise install again
+    , 5000
+    started = true
 
 # the subplay update function
 subupdate = null
@@ -183,8 +194,14 @@ update = ->
 # whether we are playing (or paused)
 playing = true
 
+# tells when we last got an time update, this is so we reinstall all
+# the handlers if we not get any update for a while.
+lastTimeUpdate = 0
+
 # wire video update events to the update function
-onTimeUpdate = (ev) -> update ev.target.currentTime
+onTimeUpdate = (ev) ->
+  lastTimeUpdate = Date.now()
+  update ev.target.currentTime
 onPlay  = ->
   log 'play'
   playing = true
